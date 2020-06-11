@@ -64,18 +64,18 @@ sub umount2(Str() $path, int $flags) is export {
 }
 
 sub chroot(Str() $path) is export {
-	sub chroot(str --> int32) is native { * }
+	sub chroot(str --> int16) is native { * }
 	raise-errno-on * < 0, &chroot, $path;
 }
 
 sub personality(int $flags --> int) is export {
-	sub personality(int32 --> int32) is native { * }
+	sub personality(int16 --> int16) is native { * }
 	raise-errno-on * < 0, &personality, $flags;
 }
 
-sub getuid(--> int32) is native is export { * }
-sub getgid(--> int32) is native is export { * }
-sub getpid(--> int32) is native is export { * }
+sub getuid(--> int16) is native is export { * }
+sub getgid(--> int16) is native is export { * }
+sub getpid(--> int16) is native is export { * }
 
 constant CLONE_NEWNS	is export = 0x00020000;
 constant CLONE_NEWUSER	is export = 0x10000000;
