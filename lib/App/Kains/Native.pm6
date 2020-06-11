@@ -27,7 +27,7 @@ class X::Errno is Exception is export {
 	has $.errno;
 
 	method message {
-		sub strerror(int $errno --> Str) is native { * }
+		sub strerror(int32 $errno --> Str) is native { * }
 
 		my @arguments = @!arguments.map: {
 			when Str { qq<"$_">		}
@@ -49,33 +49,33 @@ sub raise-errno-on(Code $condition, Code $function, *@arguments --> Any) {
 }
 
 sub unshare(int $flags) is export {
-	sub unshare(int --> int) is native { * }
+	sub unshare(int32 --> int32) is native { * }
 	raise-errno-on * < 0, &unshare, $flags;
 }
 
 sub mount(Str() $source, Str() $target, Str $type, int $flags, Str $data) is export {
-	sub mount(Str, Str, Str, int, Str --> int) is native { * }
+	sub mount(str, str, str, int32, str --> int32) is native { * }
 	raise-errno-on * < 0, &mount, $source, $target, $type, $flags, $data;
 }
 
 sub umount2(Str() $path, int $flags) is export {
-	sub umount2(Str, int --> int) is native { * }
+	sub umount2(str, int32 --> int32) is native { * }
 	raise-errno-on * < 0, &umount2, $path, $flags;
 }
 
 sub chroot(Str() $path) is export {
-	sub chroot(Str --> int) is native { * }
+	sub chroot(str --> int32) is native { * }
 	raise-errno-on * < 0, &chroot, $path;
 }
 
 sub personality(int $flags --> int) is export {
-	sub personality(int --> int) is native { * }
+	sub personality(int32 --> int32) is native { * }
 	raise-errno-on * < 0, &personality, $flags;
 }
 
-sub getuid(--> int) is native is export { * }
-sub getgid(--> int) is native is export { * }
-sub getpid(--> int) is native is export { * }
+sub getuid(--> int32) is native is export { * }
+sub getgid(--> int32) is native is export { * }
+sub getpid(--> int32) is native is export { * }
 
 constant CLONE_NEWNS	is export = 0x00020000;
 constant CLONE_NEWUSER	is export = 0x10000000;
