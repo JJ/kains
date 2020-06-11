@@ -49,7 +49,7 @@ sub raise-errno-on(Code $condition, Code $function, *@arguments --> Any) {
 }
 
 sub unshare(int $flags) is export {
-	sub unshare(int32 --> int32) is native { * }
+	sub unshare(int8 --> int8) is native { * }
 	raise-errno-on * < 0, &unshare, $flags;
 }
 
